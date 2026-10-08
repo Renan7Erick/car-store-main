@@ -1,0 +1,1 @@
+Projeto desenvolvido durante as aulas práticas de **Projeto Integrador (3º Semestre)**. A aplicação consiste em um sistema web para gerenciamento de veículos, utilizando Java Servlets, JSP e banco de dados H2 via JDBC.
