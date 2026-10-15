@@ -20,21 +20,20 @@ public class CarDAO {
 
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
 
-            System.out.println("Sucesso ao conectar no banco de dados!");
+            System.out.println("success in database connection");
 
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
             preparedStatement.setString(1, car.getName());
-
             preparedStatement.execute();
 
-            System.out.println("Sucesso ao cadastrar o carro no banco de dados");
+            System.out.println("success in insert car");
 
             connection.close();
 
-        } catch (Exception e ) {
+        } catch (Exception e) {
 
-            System.out.println("Falha ao inserir o carro no banco de dados!");
+            System.out.println("fail in database connection");
 
         }
 
@@ -48,9 +47,9 @@ public class CarDAO {
 
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
 
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            System.out.println("success in database connection");
 
-            System.out.println("Sucesso ao abrir a conexão com o DB");
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -58,34 +57,55 @@ public class CarDAO {
 
             while (resultSet.next()) {
 
-                Car car = new Car();
+                String carId = resultSet.getString("id");
+                String carName = resultSet.getString("name");
 
-                String id = resultSet.getString("id");
-                car.setId(id);
-
-                String name = resultSet.getString("name");
-                car.setName(name);
+                Car car = new Car(carId, carName);
 
                 cars.add(car);
 
             }
 
-            System.out.println("Sucesso ao consultar os dados no DB");
+            System.out.println("success in select * car");
 
             connection.close();
 
             return cars;
 
-
         } catch (Exception e) {
 
-            System.out.println("Erro ao consultar os carros no DB: " + e.getMessage());
+            System.out.println("fail in database connection");
+
+            return Collections.emptyList();
 
         }
 
-        return Collections.emptyList();
-
     }
 
+    public void deleteCarById(String carId) {
+
+        String SQL = "DELETE CAR WHERE ID = ?";
+
+        try {
+
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+
+            System.out.println("success in database connection");
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, carId);
+            preparedStatement.execute();
+
+            System.out.println("success on delete car with id: " + carId);
+
+            connection.close();
+
+        } catch (Exception e) {
+
+            System.out.println("fail in database connection");
+
+        }
+
+    }
 
 }

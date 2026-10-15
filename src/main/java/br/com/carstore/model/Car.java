@@ -4,30 +4,13 @@ public class Car {
 
     private String id;
     private String name;
-    private String color;
-    private String model;
 
-    public String getModel() {
-        return model;
+    public Car(String name) {
+        this.name = name;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Car(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -35,8 +18,8 @@ public class Car {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
 }
